@@ -1,7 +1,10 @@
+import os
 import pandas as pd
 import pulp
 import matplotlib.pyplot as plt
 import datetime
+
+data_dir = os.path.join(os.path.dirname(__file__), 'data')
 
 offers = {	"wind":{"capacity":10000,"price":0,"color":'#117733',"cost":0},
 			"solar":{"capacity":10000,"price":0,"color":'#FFCC66',"cost":0},
@@ -15,7 +18,7 @@ offers = {	"wind":{"capacity":10000,"price":0,"color":'#117733',"cost":0},
 def load_scenario(scen=1,solar=1000,wind=1000):
 	#loads a scenario (each scenario is a different day)
 	#specify installed solar/wind installed capacity using kwargs `wind` and `solar
-	df = pd.read_csv("python/nempy/data/scenario_{0}.csv".format(scen),parse_dates=['SETTLEMENTDATE'])
+	df = pd.read_csv("{0}/scenario_{1}.csv".format(data_dir,scen),parse_dates=['SETTLEMENTDATE'])
 	df.WIND = df.WIND * wind
 	df.SOLAR = df.SOLAR * solar
 	return df
